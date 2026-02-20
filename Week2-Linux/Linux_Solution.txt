@@ -1,0 +1,450 @@
+# DevOps User and SSH Configuration Challenge
+
+## 🧩 Problem Statement
+
+* Create a user `devops_user` and add them to a group `devops_team`
+* Set a password and grant sudo access
+* Restrict SSH login for certain users in `/etc/ssh/sshd_config`
+
+---
+
+## ⚙️ Solution (Step-by-Step Commands)
+
+### 1. Create the group
+
+```bash
+sudo groupadd devops_team
+```
+
+### 2. Create the user with home directory and bash shell
+
+```bash
+sudo useradd -m -s /bin/bash devops_user
+```
+
+### 3. Add the user to the devops_team group
+
+```bash
+sudo usermod -aG devops_team devops_user
+```
+
+### 4. Set password for the user
+
+```bash
+sudo passwd devops_user
+```
+
+### 5. Grant sudo access to the user
+
+```bash
+sudo usermod -aG sudo devops_user
+```
+
+### 6. Restrict SSH access to only devops_user
+
+```bash
+echo "AllowUsers devops_user" | sudo tee -a /etc/ssh/sshd_config
+```
+
+### 7. Restart SSH service to apply changes
+
+```bash
+sudo systemctl restart ssh
+```
+
+---
+
+## ✅ Verification Commands
+
+Check user:
+
+```bash
+id devops_user
+```
+
+Check group:
+
+```bash
+groups devops_user
+```
+
+Check sudo access:
+
+```bash
+su - devops_user
+sudo whoami
+```
+
+---
+
+## 🎯 Result
+
+* User `devops_user` created
+* Added to `devops_team` group
+* Granted sudo privileges
+* SSH access restricted successfully
+
+---
+
+# File & Directory Permissions Challenge
+
+## 🧩 Problem Statement
+
+Create a directory and file and set permissions so that:
+
+* Owner can read and write
+* Group can read
+* Others have no access
+
+Verify using ls -l
+
+---
+
+## ⚙️ Solution Commands
+
+### 1. Create directory
+
+```bash
+mkdir devopsworkspace
+```
+
+### 2. Move into directory
+
+```bash
+cd devopsworkspace
+```
+
+### 3. Create file
+
+```bash
+touch projectnotes.txt
+```
+
+### 4. Set correct permissions
+
+```bash
+chmod 640 projectnotes.txt
+```
+
+### 5. Verify permissions
+
+```bash
+ls -l
+```
+
+---
+
+## 🔍 Expected Output
+
+```
+-rw-r----- 1 user user projectnotes.txt
+```
+
+---
+
+## 📖 Permission Explanation
+
+6 → Owner → read, write
+4 → Group → read
+0 → Others → no access
+
+---
+
+## 🎯 Result
+
+File created successfully with secure permissions.
+
+
+**Task: Log File Analysis using Linux Commands**
+
+**Objective:**
+Download the log file from the repository and extract useful insights using Linux command-line tools like grep, awk, sed, sort, and uniq.
+
+---
+
+**Step 1: Download the Log File**
+
+Use the following command to download the log file:
+
+```
+wget https://example.com/logfile.log
+```
+
+Or clone the repository:
+
+```
+git clone https://github.com/username/repository-name.git
+cd repository-name
+```
+
+---
+
+**Step 2: Find all occurrences of the word "error" using grep**
+
+```
+grep -i "error" logfile.log
+```
+
+Explanation:
+This command searches and displays all lines containing the word "error".
+`-i` makes the search case-insensitive.
+
+---
+
+**Step 3: Extract timestamps and log levels using awk**
+
+```
+awk '{print $1, $2, $3}' logfile.log
+```
+
+Explanation:
+This command extracts the first three columns, which usually contain:
+
+• Date
+• Time
+• Log Level (INFO, ERROR, WARNING)
+
+---
+
+**Step 4: Replace all IP addresses with [REDACTED] using sed**
+
+```
+sed -E 's/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[REDACTED]/g' logfile.log
+```
+
+Explanation:
+This command hides IP addresses for security.
+
+---
+
+**Step 5 (Bonus): Find the most frequent log entries**
+
+```
+sort logfile.log | uniq -c | sort -nr | head -10
+```
+
+Explanation:
+
+• sort → sorts the log file
+• uniq -c → counts duplicate lines
+• sort -nr → sorts by frequency
+• head -10 → shows top 10 most frequent entries
+
+---
+
+**Result:**
+
+Using these Linux commands, important insights were extracted from the log file such as:
+
+• Error occurrences
+• Log timestamps and levels
+• Secured sensitive information
+• Most frequent log entries
+
+---
+
+**Tools Used:**
+
+Linux
+grep
+awk
+sed
+sort
+uniq
+
+---
+
+**Task: Background Process Management in Linux**
+
+**Objective:**
+Start a background process, monitor it using process commands, and terminate it.
+
+---
+
+# Step 1: Start Background Process
+
+```bash
+ping google.com > ping_test.log &
+```
+
+**Explanation:**
+
+• ping google.com → sends continuous network requests
+• > ping_test.log → saves output to log file
+• & → runs process in background
+
+After running, you will see:
+
+```bash
+[1] 12345
+```
+
+Where:
+
+• 1 → job number
+• 12345 → PID (Process ID)
+
+---
+
+# Step 2: Verify using ps command
+
+```bash
+ps
+```
+
+or
+
+```bash
+ps -ef | grep ping
+```
+
+This shows running ping process.
+
+Example output:
+
+```bash
+user   12345  6789  ping google.com
+```
+
+---
+
+# Step 3: Monitor using top
+
+```bash
+top
+```
+
+Explanation:
+
+Shows:
+
+• Running processes
+• CPU usage
+• Memory usage
+
+Press:
+
+```bash
+q
+```
+
+to exit
+
+---
+
+# Step 4: Monitor using htop
+
+```bash
+htop
+```
+
+Explanation:
+
+This is advanced version of top
+
+Shows:
+
+• CPU usage
+• Process ID
+• Memory usage
+
+Press:
+
+```bash
+F3
+```
+
+Search → type:
+
+```bash
+ping
+```
+
+Press:
+
+```bash
+F10
+```
+
+to exit
+
+---
+
+# Step 5: Kill the process
+
+Use PID:
+
+```bash
+kill 12345
+```
+
+Replace 12345 with your PID
+
+---
+
+# Step 6: Verify process is stopped
+
+```bash
+ps -ef | grep ping
+```
+
+If no output → process stopped successfully
+
+---
+
+# Alternative command (force kill)
+
+```bash
+kill -9 12345
+```
+
+---
+
+# Output File
+
+Check log file:
+
+```bash
+cat ping_test.log
+```
+
+---
+
+# Tools Used
+
+Linux
+ping
+ps
+top
+htop
+kill
+
+---
+
+# Result
+
+Successfully:
+
+• Started background process
+• Monitored process
+• Killed process
+• Verified termination
+
+---
+
+# Interview Question Answer (Important)
+
+**Question: How do you kill a background process?**
+
+Answer:
+
+```bash
+ps -ef | grep process_name
+kill PID
+```
+
+---
+
+
+
+
