@@ -1,0 +1,82 @@
+## SHELL SCRIPTING ASSIGNMENT
+
+Question:
+Implement an option -l or --list that allows the script to display all user accounts available in the system along with their User ID (UID).
+
+The script should display the username and UID of each user.
+
+---
+
+Script:
+
+#!/bin/bash
+
+echo "User Listing Script"
+
+if [ "$1" = "-l" ] || [ "$1" = "--list" ]
+then
+echo "List of all users and their UID:"
+
+```
+awk -F ':' '{ print "Username: " $1 " | UID: " $3 }' /etc/passwd
+```
+
+else
+echo "Invalid option"
+echo "Usage: $0 -l or --list"
+fi
+
+---
+
+Explanation:
+
+This script is used to display the list of all users present in the Linux system along with their User ID (UID).
+
+The script first checks the command-line argument using the $1 variable. If the argument is -l or --list, the script proceeds.
+
+The script uses the awk command to read the /etc/passwd file. This file contains the information of all users.
+
+The -F ':' option tells awk to use colon (:) as the field separator.
+
+In the /etc/passwd file:
+
+Field 1 represents the Username
+Field 3 represents the UID
+
+The awk command prints the username and UID in a formatted way.
+
+If an invalid option is provided, the script displays the correct usage.
+
+---
+
+Real Example:
+
+Suppose the /etc/passwd file contains:
+
+root:x:0:0:root:/root:/bin/bash
+harsh:x:1000:1000:harsh:/home/harsh:/bin/bash
+rahul:x:1001:1001:rahul:/home/rahul:/bin/bash
+
+Output:
+
+Username: root | UID: 0
+Username: harsh | UID: 1000
+Username: rahul | UID: 1001
+
+---
+
+Output Example:
+
+./script.sh -l
+
+List of all users and their UID:
+
+Username: root | UID: 0
+Username: harsh | UID: 1000
+Username: rahul | UID: 1001
+
+---
+
+Conclusion:
+
+This script successfully displays all users and their UID using the awk command. It reads the /etc/passwd file and formats the output in a user-friendly way.

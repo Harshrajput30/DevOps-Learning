@@ -1,0 +1,121 @@
+## SHELL SCRIPTING ASSIGNMENT
+
+Question:
+Implement an option -r or --reset that allows the script to reset the password of an existing user account.
+
+The script should prompt the user to enter the username and new password.
+
+Ensure that the script checks whether the username exists before resetting the password.
+
+If the username does not exist, display an appropriate message.
+
+After resetting the password, display a success message.
+
+---
+
+Script:
+
+#!/bin/bash
+
+echo "Password Reset Script"
+
+if [ "$1" = "-r" ] || [ "$1" = "--reset" ]
+then
+echo "Enter your username:"
+read username
+
+```
+count=$(cat /etc/passwd | grep -w "$username" | wc -l)
+
+if [ $count -eq 1 ]
+then
+    echo "Enter your new password:"
+    read password
+
+    echo "$username:$password" | sudo chpasswd
+
+    echo "Password for user '$username' has been reset successfully"
+    echo "Updated password is: $password"
+
+else
+    echo "User does not exist"
+fi
+```
+
+else
+echo "Invalid option"
+echo "Usage: $0 -r or --reset"
+fi
+
+---
+
+Explanation:
+
+This script is used to reset the password of an existing user account in Linux using the -r or --reset option.
+
+The script first checks the command-line argument using the $1 variable. If the argument is -r or --reset, the script continues.
+
+It prompts the user to enter the username.
+
+The script checks whether the username exists in the system by searching in the /etc/passwd file using grep. The wc -l command counts the number of matching entries.
+
+If the count is 1, it means the user exists. The script then prompts for a new password.
+
+The password is updated using the chpasswd command. This command securely changes the password of the user.
+
+Finally, the script displays a success message.
+
+If the user does not exist, the script displays an error message.
+
+---
+
+Real Example:
+
+Suppose the /etc/passwd file contains:
+
+root:x:0:0:root:/root:/bin/bash
+harsh:x:1000:1000:harsh:/home/harsh:/bin/bash
+
+Case 1: User exists
+
+Input:
+username=harsh
+password=1234
+
+Command executed:
+
+echo "harsh:1234" | sudo chpasswd
+
+Output:
+
+Password for user 'harsh' has been reset successfully
+
+---
+
+Case 2: User does not exist
+
+Input:
+username=rohit
+
+Output:
+
+User does not exist
+
+---
+
+Output Example:
+
+./script.sh -r
+
+Enter your username:
+harsh
+
+Enter your new password:
+
+Password for user 'harsh' has been reset successfully
+
+---
+
+Conclusion:
+
+This script successfully resets the password of an existing user after verifying the username. It prevents errors and ensures secure password management.

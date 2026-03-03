@@ -1,0 +1,108 @@
+## SHELL SCRIPTING ASSIGNMENT
+
+Task 1:
+Implement an option -d or --delete that allows the script to delete an existing user account.
+
+The script should prompt the user to enter the username.
+
+Ensure that the script checks whether the username exists before deleting the account.
+
+If the username does not exist, display an appropriate message.
+
+After deleting the account, display a success message with the deleted username.
+
+---
+
+Script:
+
+#!/bin/bash
+
+echo "User Deletion Script"
+
+if [ "$1" = "-d" ] || [ "$1" = "--delete" ]
+then
+echo "Enter the username to delete:"
+read username
+
+```
+count=$(cat /etc/passwd | grep -w "$username" | wc -l)
+
+if [ $count -eq 1 ]
+then
+    sudo userdel -r "$username"
+
+    echo "User '$username' deleted successfully"
+
+else
+    echo "User does not exist"
+fi
+```
+
+else
+echo "Invalid option"
+echo "Usage: $0 -d or --delete"
+fi
+
+---
+
+Explanation:
+
+This script is used to delete an existing user account in Linux using the -d or --delete option.
+
+The script first checks the command-line argument using the $1 variable. If the argument is -d or --delete, the script proceeds further.
+
+It prompts the user to enter the username that needs to be deleted.
+
+The script checks whether the username exists in the system by searching in the /etc/passwd file. The grep command searches for the username, and wc -l counts the number of matching lines.
+
+If the count is 1, it means the user exists. The script deletes the user using the userdel command. The -r option removes the user and their home directory.
+
+If the count is 0, it means the user does not exist, and the script displays an appropriate message.
+
+---
+
+Real Example:
+
+Suppose the /etc/passwd file contains:
+
+root:x:0:0:root:/root:/bin/bash
+harsh:x:1000:1000:harsh:/home/harsh:/bin/bash
+rahul:x:1001:1001:rahul:/home/rahul:/bin/bash
+
+Case 1: User exists
+
+Input:
+username=harsh
+
+Command executed:
+sudo userdel -r harsh
+
+Output:
+User 'harsh' deleted successfully
+
+---
+
+Case 2: User does not exist
+
+Input:
+username=rohit
+
+Output:
+User does not exist
+
+---
+
+Output Example:
+
+./script.sh -d
+
+Enter the username to delete:
+rahul
+
+User 'rahul' deleted successfully
+
+---
+
+Conclusion:
+
+This script successfully deletes an existing user account after checking its availability. It prevents errors by verifying the username before deletion and displays appropriate messages.

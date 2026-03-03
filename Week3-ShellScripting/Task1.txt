@@ -1,0 +1,78 @@
+## SHELL SCRIPTING ASSIGNMENT
+
+Task 1:
+Implement an option -c or --create that allows the script to create a new user account. The script should prompt the user to enter the new username and password.
+
+Ensure that the script checks whether the username is available before creating the account. If the username already exists, display an appropriate message and exit gracefully.
+
+After creating the account, display a success message with the newly created username.
+
+---
+
+Script:
+
+#!/bin/bash
+
+echo "New User Creation Script"
+
+if [ "$1" = "-c" ] || [ "$1" = "--create" ]
+then
+echo "Enter your username:"
+read username
+
+```
+count=$(cat /etc/passwd | grep -w "$username" | wc -l)
+
+if [ $count -eq 0 ]
+then
+    echo "Enter your password:"
+    read password
+
+    sudo useradd -m "$username"
+
+    echo "$username:$password" | sudo chpasswd
+
+    echo "User '$username' created successfully"
+
+else
+    echo "User already exists"
+fi
+```
+
+else
+echo "Invalid option"
+echo "Usage: $0 -c or --create"
+fi
+
+---
+
+Explanation:
+
+This shell script is used to create a new user account in Linux using the -c or --create option.
+
+The script first checks the command-line argument using the $1 variable. If the argument is -c or --create, the script proceeds further.
+
+It then prompts the user to enter a username. The script checks whether the username already exists by searching in the /etc/passwd file. The wc -l command is used to count the number of matching entries.
+
+If the count is 0, it means the username is available. The script then asks for the password and creates the user using the useradd command. The password is set using the chpasswd command.
+
+Finally, the script displays a success message with the created username.
+
+If the username already exists, the script displays a message and exits.
+
+If the user provides an invalid option, the script shows the correct usage.
+
+---
+
+Output Example:
+
+./script.sh -c
+
+Enter your username:
+harsh
+
+Enter your password:
+
+User 'harsh' created successfully
+
+---
