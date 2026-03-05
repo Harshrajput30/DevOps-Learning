@@ -1,0 +1,166 @@
+## SHELL SCRIPTING ASSIGNMENT
+
+Question:
+Create a single shell script to manage users with the following options:
+
+-c or --create → Create a new user
+-d or --delete → Delete an existing user
+-r or --reset → Reset user password
+-l or --list → List all users and UID
+-h or --help → Display help and usage information
+
+---
+
+Script:
+
+#!/bin/bash
+
+echo "User Management Script"
+
+case "$1" in
+
+-c|--create)
+
+```
+echo "Enter username:"
+read username
+
+count=$(cat /etc/passwd | grep -w "$username" | wc -l)
+
+if [ $count -eq 0 ]
+then
+    echo "Enter password:"
+    read password
+
+    sudo useradd -m "$username"
+    echo "$username:$password" | sudo chpasswd
+
+    echo "User '$username' created successfully"
+else
+    echo "User already exists"
+fi
+;;
+```
+
+-d|--delete)
+
+```
+echo "Enter username to delete:"
+read username
+
+count=$(cat /etc/passwd | grep -w "$username" | wc -l)
+
+if [ $count -eq 1 ]
+then
+    sudo userdel -r "$username"
+    echo "User '$username' deleted successfully"
+else
+    echo "User does not exist"
+fi
+;;
+```
+
+-r|--reset)
+
+```
+echo "Enter username:"
+read username
+
+count=$(cat /etc/passwd | grep -w "$username" | wc -l)
+
+if [ $count -eq 1 ]
+then
+    echo "Enter new password:"
+    read password
+
+    echo "$username:$password" | sudo chpasswd
+
+    echo "Password reset successfully"
+else
+    echo "User does not exist"
+fi
+;;
+```
+
+-l|--list)
+
+```
+echo "List of users and UID:"
+awk -F ':' '{ print "Username: " $1 " | UID: " $3 }' /etc/passwd
+;;
+```
+
+-h|--help)
+
+```
+echo "Usage: $0 [OPTION]"
+echo
+echo "Options:"
+echo "-c, --create    Create new user"
+echo "-d, --delete    Delete existing user"
+echo "-r, --reset     Reset user password"
+echo "-l, --list      List all users"
+echo "-h, --help      Show help"
+;;
+```
+
+*)
+
+```
+echo "Invalid option"
+echo "Use -h or --help for usage"
+
+;;
+```
+
+esac
+
+---
+
+Explanation:
+
+This script is a User Management Script used to perform different user operations.
+
+It uses case statement to handle different command-line options.
+
+The -c option creates a new user.
+
+The -d option deletes an existing user.
+
+The -r option resets the user password.
+
+The -l option displays all users and their UID.
+
+The -h option displays help and usage information.
+
+The script checks user existence using /etc/passwd file.
+
+---
+
+Example Usage:
+
+Create user:
+
+./usermanager.sh -c
+
+Delete user:
+
+./usermanager.sh -d
+
+Reset password:
+
+./usermanager.sh -r
+
+List users:
+
+./usermanager.sh -l
+
+Help:
+
+./usermanager.sh -h
+
+---
+
+Conclusion:
+
+This script combines all user management operations into a single script and provides help information using the help option.
