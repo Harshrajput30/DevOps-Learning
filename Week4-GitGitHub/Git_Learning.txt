@@ -1,0 +1,74 @@
+Git & GitHub Learning Summary – Week 4 (DevOps Journey)
+Author: Harsh Rajput
+
+Overview
+This week I focused on learning Git and GitHub, which are essential tools for version control and collaborative software development. Git helps track changes in source code, while GitHub provides a platform to host repositories and collaborate with other developers.
+
+Key Concepts Learned
+
+1. Version Control
+Version control allows developers to track and manage changes in code over time. It helps teams collaborate efficiently and revert to previous versions if needed.
+
+2. Git Repository
+A repository is a project folder where Git tracks all files and their changes.
+
+3. Local vs Remote Repository
+Local Repository: Stored on the developer’s machine.
+Remote Repository: Hosted on platforms like GitHub for collaboration.
+
+Git Commands Practiced
+
+git init
+Used to initialize a new Git repository.
+
+git clone <repository_url>
+Used to download a remote repository to the local machine.
+
+git status
+Shows the current state of files in the working directory.
+
+git add .
+Adds all changes to the staging area.
+
+git commit -m "message"
+Saves the changes to the repository with a message describing the update.
+
+git branch
+Displays all available branches.
+
+git checkout <branch_name>
+Switches between branches.
+
+git checkout -b <branch_name>
+Creates and switches to a new branch.
+
+git merge <branch_name>
+Merges changes from one branch into another.
+
+git push origin main
+Uploads local commits to the remote repository.
+
+git pull origin main
+Downloads and merges changes from the remote repository.
+
+Branching Strategy Importance
+
+1. Isolating Features and Bug Fixes
+Branches allow developers to work on new features or bug fixes without affecting the main branch.
+
+2. Parallel Development
+Multiple developers can work on different features simultaneously using separate branches.
+
+3. Reducing Merge Conflicts
+Using structured branching helps reduce conflicts when integrating code.
+
+4. Code Reviews with Pull Requests
+Pull Requests allow teams to review code before merging it into the main branch, improving code quality.
+
+What I Achieved This Week
+
+- Learned core Git commands
+- Practiced repository management
+- Understood branching strategies
+- Uploaded practice code to GitHub
+
