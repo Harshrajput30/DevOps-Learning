@@ -1,0 +1,73 @@
+# Docker Sample Application Deployment
+
+## Project Overview
+
+This project demonstrates how to containerize a simple Node.js application using Docker and run it inside a cloud virtual machine. The application returns a simple "Hello World" message when accessed through a web browser.
+
+## Application Details
+
+The sample application is a basic Node.js server that runs on port 4000 and responds with a text message. The goal of this task is to package this application into a Docker container and run it consistently across environments.
+
+## Dockerfile Explanation(https://github.com/danawoodman/docker-node-hello-world/blob/master/server.js)
+
+The Dockerfile defines the steps required to build the Docker image.
+
+* **FROM node:18**
+  Uses the official Node.js image as the base image.
+
+* **WORKDIR /app**
+  Sets the working directory inside the container.
+
+* **COPY package.json .**
+  Copies the package.json file to the container.
+
+* **RUN npm install**
+  Installs the required dependencies.
+
+* **COPY . .**
+  Copies the rest of the application files to the container.
+
+* **EXPOSE 4000**
+  Exposes port 4000 so the application can be accessed outside the container.
+
+* **CMD ["node", "server.js"]**
+  Runs the Node.js server when the container starts.
+
+## Build Docker Image
+
+To build the Docker image, run the following command inside the project directory:
+
+docker build -t node-app-latest .
+
+## Run Docker Container
+
+Run the container and map port 8080 from the host machine to port 4000 inside the container:
+
+docker run -d -p 8080:4000 node-app-latest
+
+## Verify Container
+
+Check if the container is running:
+
+docker ps
+
+## View Container Logs
+
+To check the logs of the running container:
+
+docker logs <container_id>
+
+## Access the Application
+
+Open the following URL in your browser:
+
+http://<VM_Public_IP>:8080
+
+
+The browser should display:
+
+Hello World
+
+## Conclusion
+
+This task demonstrates how Docker can be used to package an application along with its dependencies and deploy it easily on a cloud virtual machine. Containerization ensures consistent environments and simplifies application deployment in modern DevOps workflows.
