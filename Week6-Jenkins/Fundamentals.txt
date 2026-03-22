@@ -1,0 +1,181 @@
+# 🚀 Week 6 Learning of DevOps – Jenkins Fundamentals
+
+## 📌 Overview
+This repository contains my complete hands-on learning of **Jenkins Fundamentals** as part of my DevOps journey.
+
+Jenkins is an open-source automation server that enables **Continuous Integration (CI)** and **Continuous Deployment (CD)**. It helps automate the process of building, testing, and deploying applications efficiently.
+
+All tasks, configurations, and pipelines were implemented using **VS Code** in a local development environment.
+
+---
+
+## 🎯 Objectives
+- Understand CI/CD concepts
+- Learn Jenkins architecture
+- Install and configure Jenkins
+- Create Freestyle and Pipeline jobs
+- Write Jenkins pipeline scripts (Jenkinsfile)
+- Integrate Jenkins with GitHub
+- Automate build workflows
+
+---
+
+## 🔁 What is CI/CD?
+
+### Continuous Integration (CI)
+Developers frequently merge code into a shared repository. Jenkins automatically builds and tests the code.
+
+### Continuous Deployment (CD)
+After successful testing, the application is automatically deployed to production or staging.
+
+---
+
+## 🏗️ Jenkins Architecture
+
+Jenkins follows a **Master-Agent architecture**:
+
+### 🔹 Master Node
+- Controls Jenkins server
+- Schedules jobs
+- Manages plugins
+- Monitors builds
+
+### 🔹 Agent Node
+- Executes build tasks
+- Can run on multiple machines
+- Helps in distributed builds
+
+---
+
+## ⚙️ Installation & Setup
+
+### 🧰 Prerequisites
+- Java (JDK 8 or above)
+- Git installed
+- VS Code
+- Jenkins WAR file or installer
+
+### 🛠️ Steps to Install Jenkins
+
+1. Download Jenkins from official website  
+2. Run Jenkins using command:
+   ```bash
+   java -jar jenkins.war
+
+Open browser and go to:
+
+http://localhost:8080
+Unlock Jenkins using initial admin password
+Install suggested plugins
+Create admin user
+Access Jenkins dashboard
+🔧 Jenkins Jobs
+🔹 Freestyle Project
+Simple job configuration
+GUI-based setup
+Suitable for beginners
+🔹 Pipeline Project
+Defined using code (Jenkinsfile)
+More powerful and flexible
+Supports CI/CD workflows
+📜 Jenkins Pipeline (Pipeline as Code)
+
+A Jenkins pipeline defines the automation process in code using Groovy syntax.
+
+✅ Sample Jenkinsfile
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Code') {
+            steps {
+                git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building application...'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+            }
+        }
+    }
+}
+🔗 GitHub Integration
+
+Jenkins can be integrated with GitHub to automate workflows.
+
+Steps:
+Install Git plugin
+Add GitHub repository URL in Jenkins job
+Configure credentials (if required)
+Trigger build on code push (using webhook or polling)
+🔌 Plugins Used
+
+Plugins extend Jenkins functionality.
+
+Git Plugin → Connect with GitHub
+Pipeline Plugin → Create pipelines
+Blue Ocean → Better UI (optional)
+Maven Integration Plugin → Build Java projects
+🛠️ Hands-on Implementation
+
+During this learning, I performed the following:
+
+Installed Jenkins locally
+Configured Jenkins dashboard
+Created Freestyle jobs
+Created Pipeline jobs
+Wrote Jenkinsfile using VS Code
+Connected Jenkins with GitHub repository
+Executed automated build pipeline
+Understood plugin management
+
+📊 Key Concepts Learned
+Continuous Integration (CI)
+Continuous Deployment (CD)
+Pipeline as Code
+Automation in DevOps
+Version Control Integration
+Build and Deployment lifecycle
+
+💡 Challenges Faced
+Jenkins initial setup issues
+Understanding pipeline syntax
+GitHub integration errors
+Plugin configuration
+
+🧠 Key Takeaways
+Jenkins automates repetitive tasks
+CI/CD improves development speed
+Pipelines make workflows scalable and reusable
+Integration with GitHub enables real-time automation
+
+🚀 Future Scope
+Docker integration with Jenkins
+Kubernetes deployment
+Cloud-based Jenkins setup (AWS/Azure)
+Advanced pipeline scripting
+Monitoring using Prometheus & Grafana
+
+📁 Project Structure
+jenkins-fundamentals/
+│── Jenkinsfile
+│── README.md
+│── sample-project/
+
+🙌 Conclusion
+
+This project helped me build a strong foundation in Jenkins and CI/CD pipelines.
+I will continue enhancing my DevOps skills by working on real-world projects and advanced tools.
